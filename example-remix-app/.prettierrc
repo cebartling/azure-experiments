@@ -1,0 +1,30 @@
+{
+    "plugins": ["@trivago/prettier-plugin-sort-imports"],
+    "arrowParens": "avoid",
+    "endOfLine": "lf",
+    "importOrder": [
+        "react",
+        "^@",
+        "^(components/)",
+        "^(contexts/)",
+        "^(layouts/)",
+        "^(pages/)",
+        "^(typings)",
+        "^(styles/)",
+        "^(utilities/)",
+        "(.jpg)$",
+        "(.png)$",
+        "(.svg)$",
+        "^(hooks/)",
+        "^(?!(./styles))(./)",
+        "^(./hooks)",
+        "^(./constants)",
+        "^(./styles)"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true,
+    "semi": true,
+    "singleQuote": true,
+    "tabWidth": 4,
+    "trailingComma": "none"
+}
