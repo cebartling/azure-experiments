@@ -2,7 +2,7 @@
 terraform {
   required_providers {
     azurerm = {
-      source  = "registry.terraform.io/hashicorp/azurerm"
+      source  = "hashicorp/azurerm"
       version = "~> 4.7.0"
     }
     kubernetes = {
@@ -33,3 +33,40 @@ provider "azurerm" {
   }
   subscription_id = var.subscription_id
 }
+
+# provider "kubernetes" {
+#   host                   = azurerm_kubernetes_cluster.default.kube_admin_config.0.host
+#   username               = azurerm_kubernetes_cluster.default.kube_admin_config.0.username
+#   password               = azurerm_kubernetes_cluster.default.kube_admin_config.0.password
+#   client_certificate     = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.client_certificate)
+#   client_key             = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.client_key)
+#   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.cluster_ca_certificate)
+# }
+
+# provider "kubectl" {
+#   host                   = azurerm_kubernetes_cluster.default.kube_admin_config.0.host
+#   username               = azurerm_kubernetes_cluster.default.kube_admin_config.0.username
+#   password               = azurerm_kubernetes_cluster.default.kube_admin_config.0.password
+#   client_certificate     = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.client_certificate)
+#   client_key             = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.client_key)
+#   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.cluster_ca_certificate)
+# }
+
+# provider "helm" {
+#   kubernetes {
+#     host                   = azurerm_kubernetes_cluster.default.kube_admin_config.0.host
+#     username               = azurerm_kubernetes_cluster.default.kube_admin_config.0.username
+#     password               = azurerm_kubernetes_cluster.default.kube_admin_config.0.password
+#     client_certificate     = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.client_certificate)
+#     client_key             = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.client_key)
+#     cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.default.kube_admin_config.0.cluster_ca_certificate)
+#   }
+#
+#   registry {
+#     # Manually perform a `helm repo update` on the runner before running Terraform
+#     url      = "oci://artifacts.private.registry"
+#     username = "api"
+#     # Pass in secret on environment variable named TF_VAR_artifactAPIToken
+#     password = var.artifactAPIToken
+#   }
+# }
