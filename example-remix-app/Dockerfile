@@ -10,7 +10,7 @@ RUN apk --no-cache update && apk upgrade
 WORKDIR /usr/server/app
 COPY ./package*.json .
 RUN npm ci --omit=dev --legacy-peer-deps
-COPY ./.env.local .
+COPY ./.env .
 
 COPY --from=builder /usr/server/app/public/ public/
 COPY --from=builder /usr/server/app/*.js .
