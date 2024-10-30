@@ -8,9 +8,12 @@
     "dev": "node ./server.js",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "start": "cross-env NODE_ENV=production node ./server.js",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "build-docker": "remix vite:build && docker build -t azure-experiments-remix-app .",
+    "run-docker": "docker run -p 3000:3000 azure-experiments-remix-app"
   },
   "dependencies": {
+    "@microsoft/applicationinsights-web": "^3.3.3",
     "@remix-run/express": "^2.13.1",
     "@remix-run/node": "^2.13.1",
     "@remix-run/react": "^2.13.1",
