@@ -1,6 +1,8 @@
-import type { MetaFunction } from '@remix-run/node';
-
-import appInsights from '~/services/app-insights';
+import type { LoaderFunction, MetaFunction } from '@remix-run/node';
+import indexLoader from '~/loaders/routes/index-loader';
+import { useLoaderData } from '@remix-run/react';
+import { useEffect } from 'react';
+import getClientSideAppInsights from '~/services/app-insights.client';
 
 export const meta: MetaFunction = () => {
     return [
@@ -9,8 +11,22 @@ export const meta: MetaFunction = () => {
     ];
 };
 
+export const loader: LoaderFunction = indexLoader;
+
 export default function Index() {
-    appInsights.trackPageView(); // Manually call trackPageView to establish the current user/session/pageview
+    const data = useLoaderData<typeof indexLoader>();
+
+    useEffect(() => {
+        if (data?.ENV?.APPLICATION_INSIGHTS_CONNECTION_STRING) {
+            const appInsights = getClientSideAppInsights(data.ENV.APPLICATION_INSIGHTS_CONNECTION_STRING);
+            appInsights.trackPageView({
+                name: 'Index',
+                uri: '/',
+                refUri: '/',
+                properties: { page: 'Index' }
+            });
+        }
+    }, [data]);
 
     return (
         <div className="flex h-screen items-center justify-center">
@@ -32,7 +48,8 @@ export default function Index() {
                         />
                     </div>
                 </header>
-                <nav className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
+                <nav
+                    className="flex flex-col items-center justify-center gap-4 rounded-3xl border border-gray-200 p-6 dark:border-gray-700">
                     <p className="leading-6 text-gray-700 dark:text-gray-200">
                         What&apos;s next?
                     </p>
